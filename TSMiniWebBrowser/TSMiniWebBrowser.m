@@ -130,16 +130,16 @@ enum actionSheetButtonIndex {
     toolBar.barStyle = barStyle;
     [self.view addSubview:toolBar];
     
-    buttonGoBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonTouchUp:)];
+    buttonGoBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"TSMiniWebBrowser.bundle/back_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonTouchUp:)];
     
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace.width = 30;
     
-    buttonGoForward = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(forwardButtonTouchUp:)];
+    buttonGoForward = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"TSMiniWebBrowser.bundle/forward_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(forwardButtonTouchUp:)];
     
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    UIBarButtonItem *buttonReload = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reload_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(reloadButtonTouchUp:)];
+    UIBarButtonItem *buttonReload = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"TSMiniWebBrowser.bundle/reload_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(reloadButtonTouchUp:)];
     
     UIBarButtonItem *fixedSpace2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace2.width = 20;
@@ -211,7 +211,7 @@ enum actionSheetButtonIndex {
         showPageTitleOnTitleBar = YES;
         showReloadButton = YES;
         showActionButton = YES;
-        modalDismissButtonTitle = NSLocalizedString(@"Done", nil);
+        modalDismissButtonTitle = NSLocalizedStringFromTable(@"Done", @"TSMiniWebBrowser", nil);
         forcedTitleBarText = nil;
         barStyle = UIBarStyleDefault;
 		barTintColor = nil;
@@ -353,14 +353,14 @@ enum actionSheetButtonIndex {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
     actionSheet.title = urlString;
     actionSheet.delegate = self;
-    [actionSheet addButtonWithTitle:NSLocalizedString(@"Open in Safari", nil)];
+    [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Open in Safari", @"TSMiniWebBrowser", nil)];
     
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://"]]) {
         // Chrome is installed, add the option to open in chrome.
-        [actionSheet addButtonWithTitle:NSLocalizedString(@"Open in Chrome", nil)];
+        [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Open in Chrome", @"TSMiniWebBrowser", nil)];
     }
     
-    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Cancel", @"TSMiniWebBrowser", nil)];
 	actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     
     if (mode == TSMiniWebBrowserModeTabBar) {
@@ -538,11 +538,11 @@ enum actionSheetButtonIndex {
     }
 	
     // Show error alert
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Could not load page", nil)
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTable(@"Could not load page", @"TSMiniWebBrowser", nil)
                                                     message:error.localizedDescription
                                                    delegate:self
                                           cancelButtonTitle:nil
-                                          otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
+                                          otherButtonTitles:NSLocalizedStringFromTable(@"OK", @"TSMiniWebBrowser", nil), nil];
 	[alert show];
 }
 
