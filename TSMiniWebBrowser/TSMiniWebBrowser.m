@@ -114,6 +114,18 @@ enum actionSheetButtonIndex {
     [self.view addSubview:navigationBarModal];
 }
 
+- (UIImage *)buttonGoBackImage {
+    return [UIImage imageNamed:@"back_icon.png"];
+}
+
+- (UIImage *)buttonGoForward {
+    return [UIImage imageNamed:@"forward_icon.png"];
+}
+
+- (UIImage *)buttonReloadImage {
+    return [UIImage imageNamed:@"reload_icon.png"];
+}
+
 -(void) initToolBar {
     if (mode == TSMiniWebBrowserModeNavigation) {
         self.navigationController.navigationBar.barStyle = barStyle;
@@ -130,16 +142,16 @@ enum actionSheetButtonIndex {
     toolBar.barStyle = barStyle;
     [self.view addSubview:toolBar];
     
-    buttonGoBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonTouchUp:)];
+    buttonGoBack = [[UIBarButtonItem alloc] initWithImage:[self buttonGoBackImage] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonTouchUp:)];
     
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace.width = 30;
     
-    buttonGoForward = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(forwardButtonTouchUp:)];
+    buttonGoForward = [[UIBarButtonItem alloc] initWithImage:[self buttonGoForward] style:UIBarButtonItemStylePlain target:self action:@selector(forwardButtonTouchUp:)];
     
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    UIBarButtonItem *buttonReload = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reload_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(reloadButtonTouchUp:)];
+    UIBarButtonItem *buttonReload = [[UIBarButtonItem alloc] initWithImage:[self buttonReloadImage] style:UIBarButtonItemStylePlain target:self action:@selector(reloadButtonTouchUp:)];
     
     UIBarButtonItem *fixedSpace2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace2.width = 20;

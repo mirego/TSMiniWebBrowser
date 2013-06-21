@@ -83,4 +83,9 @@ typedef enum {
 - (id)initWithUrl:(NSURL*)url;
 - (void)setFixedTitleBarText:(NSString*)newTitleBarText;
 - (void)loadURL:(NSURL*)url;
+
+- (UIImage *)buttonGoBackImage;
+- (UIImage *)buttonGoForward;
+- (UIImage *)buttonReloadImage;
+
 @end
