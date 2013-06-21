@@ -35,6 +35,7 @@
 @synthesize showReloadButton;
 @synthesize showActionButton;
 @synthesize barStyle;
+@synthesize changeStatusBarStyle;
 @synthesize modalDismissButtonTitle;
 @synthesize barTintColor;
 @synthesize domainLockList;
@@ -214,6 +215,7 @@ enum actionSheetButtonIndex {
         modalDismissButtonTitle = NSLocalizedString(@"Done", nil);
         forcedTitleBarText = nil;
         barStyle = UIBarStyleDefault;
+        changeStatusBarStyle = YES;
 		barTintColor = nil;
     }
     
@@ -252,9 +254,6 @@ enum actionSheetButtonIndex {
         [self initTitleBar];
     }
     
-    // Status bar style
-    [[UIApplication sharedApplication] setStatusBarStyle:barStyle animated:YES];
-    
     // UI state
     buttonGoBack.enabled = NO;
     buttonGoForward.enabled = NO;
@@ -281,6 +280,12 @@ enum actionSheetButtonIndex {
 	}
 	
 	[webView.scrollView setScrollsToTop:YES];
+
+    // Status bar style
+    originalStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
+    if (changeStatusBarStyle && originalStatusBarStyle != barStyle) {
+        [[UIApplication sharedApplication] setStatusBarStyle:barStyle animated:YES];
+    }
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
@@ -292,7 +297,9 @@ enum actionSheetButtonIndex {
     }
     
     // Restore Status bar style
-    [[UIApplication sharedApplication] setStatusBarStyle:originalBarStyle animated:NO];
+    if (changeStatusBarStyle && originalStatusBarStyle != barStyle) {
+        [[UIApplication sharedApplication] setStatusBarStyle:originalStatusBarStyle animated:YES];
+    }
     
     // Stop loading
     [webView stopLoading];
