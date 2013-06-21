@@ -116,15 +116,15 @@ enum actionSheetButtonIndex {
 }
 
 - (UIImage *)buttonGoBackImage {
-    return [UIImage imageNamed:@"back_icon.png"];
+    return [UIImage imageNamed:@"TSMiniWebBrowser.bundle/back_icon.png"];
 }
 
 - (UIImage *)buttonGoForward {
-    return [UIImage imageNamed:@"forward_icon.png"];
+    return [UIImage imageNamed:@"TSMiniWebBrowser.bundle/forward_icon.png"];
 }
 
 - (UIImage *)buttonReloadImage {
-    return [UIImage imageNamed:@"reload_icon.png"];
+    return [UIImage imageNamed:@"TSMiniWebBrowser.bundle/reload_icon.png"];
 }
 
 -(void) initToolBar {
@@ -224,7 +224,7 @@ enum actionSheetButtonIndex {
         showPageTitleOnTitleBar = YES;
         showReloadButton = YES;
         showActionButton = YES;
-        modalDismissButtonTitle = NSLocalizedString(@"Done", nil);
+        modalDismissButtonTitle = NSLocalizedStringFromTable(@"Done", @"TSMiniWebBrowser", nil);
         forcedTitleBarText = nil;
         barStyle = UIBarStyleDefault;
         changeStatusBarStyle = YES;
@@ -372,14 +372,14 @@ enum actionSheetButtonIndex {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
     actionSheet.title = urlString;
     actionSheet.delegate = self;
-    [actionSheet addButtonWithTitle:NSLocalizedString(@"Open in Safari", nil)];
+    [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Open in Safari", @"TSMiniWebBrowser", nil)];
     
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://"]]) {
         // Chrome is installed, add the option to open in chrome.
-        [actionSheet addButtonWithTitle:NSLocalizedString(@"Open in Chrome", nil)];
+        [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Open in Chrome", @"TSMiniWebBrowser", nil)];
     }
     
-    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Cancel", @"TSMiniWebBrowser", nil)];
 	actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     
     if (mode == TSMiniWebBrowserModeTabBar) {
@@ -557,11 +557,11 @@ enum actionSheetButtonIndex {
     }
 	
     // Show error alert
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Could not load page", nil)
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTable(@"Could not load page", @"TSMiniWebBrowser", nil)
                                                     message:error.localizedDescription
                                                    delegate:self
                                           cancelButtonTitle:nil
-                                          otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
+                                          otherButtonTitles:NSLocalizedStringFromTable(@"OK", @"TSMiniWebBrowser", nil), nil];
 	[alert show];
 }
 
