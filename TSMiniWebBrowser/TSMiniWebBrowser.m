@@ -89,6 +89,12 @@ enum actionSheetButtonIndex {
     }
 }
 
+- (CGFloat)statusBarHeight
+{
+    CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+    return MIN(statusBarFrame.size.width, statusBarFrame.size.height);
+}
+
 //Added in the dealloc method to remove the webview delegate, because if you use this in a navigation controller
 //TSMiniWebBrowser can get deallocated while the page is still loading and the web view will call its delegate-- resulting in a crash
 -(void)dealloc
@@ -106,7 +112,7 @@ enum actionSheetButtonIndex {
     titleBar.leftBarButtonItem = buttonDone;
     
     CGFloat width = self.view.frame.size.width;
-    CGFloat statusbarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    CGFloat statusbarHeight = [self statusBarHeight];
     if (([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedDescending)) {
         statusbarHeight = 0.0;
     }
@@ -194,7 +200,7 @@ enum actionSheetButtonIndex {
 
 -(void) initWebView {
     CGSize viewSize = self.view.frame.size;
-    CGFloat statusbarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    CGFloat statusbarHeight = [self statusBarHeight];
     if (([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedDescending)) {
         statusbarHeight = 0.0;
     }
@@ -300,7 +306,7 @@ enum actionSheetButtonIndex {
 	}
 	
 	[webView.scrollView setScrollsToTop:YES];
-
+    
     // Status bar style
     originalStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
     if (changeStatusBarStyle && originalStatusBarStyle != barStyle) {
@@ -339,27 +345,27 @@ enum actionSheetButtonIndex {
     switch (toInterfaceOrientation) {
         case UIInterfaceOrientationPortraitUpsideDown:
         case UIInterfaceOrientationPortrait:
-            // Going to Portrait mode
-            for (UIScrollView *scroll in [webView subviews]) { //we get the scrollview
-                // Make sure it really is a scroll view and reset the zoom scale.
-                if ([scroll respondsToSelector:@selector(setZoomScale:)]){
-                    scroll.minimumZoomScale = scroll.minimumZoomScale/ratioAspect;
-                    scroll.maximumZoomScale = scroll.maximumZoomScale/ratioAspect;
-                    [scroll setZoomScale:(scroll.zoomScale/ratioAspect) animated:YES];
-                }
+        // Going to Portrait mode
+        for (UIScrollView *scroll in [webView subviews]) { //we get the scrollview
+            // Make sure it really is a scroll view and reset the zoom scale.
+            if ([scroll respondsToSelector:@selector(setZoomScale:)]){
+                scroll.minimumZoomScale = scroll.minimumZoomScale/ratioAspect;
+                scroll.maximumZoomScale = scroll.maximumZoomScale/ratioAspect;
+                [scroll setZoomScale:(scroll.zoomScale/ratioAspect) animated:YES];
             }
-            break;
+        }
+        break;
         default:
-            // Going to Landscape mode
-            for (UIScrollView *scroll in [webView subviews]) { //we get the scrollview
-                // Make sure it really is a scroll view and reset the zoom scale.
-                if ([scroll respondsToSelector:@selector(setZoomScale:)]){
-                    scroll.minimumZoomScale = scroll.minimumZoomScale *ratioAspect;
-                    scroll.maximumZoomScale = scroll.maximumZoomScale *ratioAspect;
-                    [scroll setZoomScale:(scroll.zoomScale*ratioAspect) animated:YES];
-                }
+        // Going to Landscape mode
+        for (UIScrollView *scroll in [webView subviews]) { //we get the scrollview
+            // Make sure it really is a scroll view and reset the zoom scale.
+            if ([scroll respondsToSelector:@selector(setZoomScale:)]){
+                scroll.minimumZoomScale = scroll.minimumZoomScale *ratioAspect;
+                scroll.maximumZoomScale = scroll.maximumZoomScale *ratioAspect;
+                [scroll setZoomScale:(scroll.zoomScale*ratioAspect) animated:YES];
             }
-            break;
+        }
+        break;
     }
 }
 
